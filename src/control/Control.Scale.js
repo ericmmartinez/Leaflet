@@ -32,16 +32,17 @@ L.Control.Scale = L.Control.extend({
 	},
 
 	_update: function () {
-		var bounds = this._map.getBounds(),
-		    centerLat = bounds.getCenter().lat,
-
-		    left = new L.LatLng(centerLat, bounds.getSouthWest().lng),
-		    right = new L.LatLng(centerLat, bounds.getNorthEast().lng),
-
-		    size = this._map.getSize(),
-		    options = this.options,
-
-		    maxMeters = left.distanceTo(right) * (options.maxWidth / size.x);
+		var map = this._map,
+			options = this.options,
+			cen = map.getCenter().lat * Math.PI / 180.0,
+			right = this._map.latLngToContainerPoint(new L.LatLng(cen, 180.0)),
+			left = this._map.latLngToContainerPoint(new L.LatLng(cen, -180.0)),
+			// Pixels per 360 degrees
+			cir_px = right.x - left.x,
+			// Circumference of earth in meters at current map center latitude
+			cir_m = 2 * Math.PI * 6378000 * Math.cos(cen),
+			ratio = cir_m / cir_px,
+			maxMeters = options.maxWidth * ratio;
 
 		if (options.metric) {
 			this._updateMetric(maxMeters);
