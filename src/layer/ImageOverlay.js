@@ -1,7 +1,13 @@
 L.ImageOverlay = L.Class.extend({
 	includes: L.Mixin.Events,
 
-	initialize: function (/*String*/ url, /*LatLngBounds*/ bounds) {
+	options: {
+		opacity: 1.0
+	},
+
+	initialize: function (/*String*/ url, /*LatLngBounds*/ bounds,
+			/*Object*/ options) {
+		L.Util.setOptions(this, options);
 		this._url = url;
 		this._bounds = bounds;
 	},
@@ -29,6 +35,9 @@ L.ImageOverlay = L.Class.extend({
 
 		this._image.style.visibility = 'hidden';
 		//TODO opacity option
+		var o = this.options.opacity;
+		this._image.style.filter = 'alpha(opacity=' + (o * 100) + ')';
+		this._image.style.opacity = o;
 
 		//TODO createImage util method to remove duplication
 		L.Util.extend(this._image, {
