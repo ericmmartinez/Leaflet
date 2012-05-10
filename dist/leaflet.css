@@ -155,11 +155,11 @@ a.leaflet-active {
 	height: 27px;
 	}
 .leaflet-control-zoom-in {
-	background-image: url(images/zoom-in.png);
+	background-image: url(/template/js/classes/com/leaflet/images/zoom-in.png);
 	margin-bottom: 5px;
 	}
 .leaflet-control-zoom-out {
-	background-image: url(images/zoom-out.png);
+	background-image: url(/template/js/classes/com/leaflet/images/zoom-out.png);
 	}
 
 .leaflet-control-layers {
@@ -170,7 +170,7 @@ a.leaflet-active {
 	border-radius: 8px;
 	}
 .leaflet-control-layers a {
-	background-image: url(images/layers.png);
+	background-image: url(/template/js/classes/com/leaflet/images/layers.png);
 	width: 36px;
 	height: 36px;
 	}
@@ -373,5 +373,5 @@ a.leaflet-active {
 	font: 12px/1.4 "Helvetica Neue", Arial, Helvetica, sans-serif;
 	}
 .leaflet-popup-close-button {
-	background: white url(images/popup-close.png);
+	background: white url(/template/js/classes/com/leaflet/images/popup-close.png);
 	}
