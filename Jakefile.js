@@ -26,7 +26,7 @@ desc('Combine and compress Leaflet source files');
 task('build', ['lint'], function (compsBase32, buildName) {
 	var pathPart = 'dist/leaflet' + (buildName ? '-' + buildName : ''),
 		srcPath = pathPart + '-src.js',
-		path = pathPart + '.js';
+		path = pathPart + '-min.js';
 
 	var files = build.getFiles(compsBase32);
 
