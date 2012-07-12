@@ -32,6 +32,9 @@
 	border: 1px solid #bbb;
 	}
 
+.leaflet-control-scale {
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3F000000',EndColorStr='#3F000000');
+	}
 .leaflet-control-zoom {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#3F000000',EndColorStr='#3F000000');
 	}

@@ -66,11 +66,14 @@ L.Control.Layers = L.Control.extend({
 				.addListener(container, 'mouseover', this._expand, this)
 				.addListener(container, 'mouseout', this._collapse, this);
 
-			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container);
+			var link = this._layersLink = L.DomUtil.create('a', className + '-toggle', container),
+			eventType = L.Browser.touch ? 'click' : 'focus';
 			link.href = '#';
 			link.title = 'Layers';
 
-			L.DomEvent.addListener(link, L.Browser.touch ? 'click' : 'focus', this._expand, this);
+			L.DomEvent
+				.addListener(link, eventType, L.DomEvent.stop)
+				.addListener(link, eventType, this._expand, this);
 
 			this._map.on('movestart', this._collapse, this);
 			// TODO keyboard accessibility
@@ -121,11 +124,12 @@ L.Control.Layers = L.Control.extend({
 		var label = document.createElement('label');
 
 		var input = document.createElement('input');
+		input.type = obj.overlay ? 'checkbox' : 'radio';
 		if (!obj.overlay) {
 			input.name = 'leaflet-base-layers';
+		} else {
+			input.name = 'leaflet-overlay-layers[]';
 		}
-		input.type = obj.overlay ? 'checkbox' : 'radio';
-		input.checked = this._map.hasLayer(obj.layer);
 		input.layerId = L.Util.stamp(obj.layer);
 
 		L.DomEvent.addListener(input, 'click', this._onInputClick, this);
@@ -134,6 +138,7 @@ L.Control.Layers = L.Control.extend({
 
 		label.appendChild(input);
 		label.appendChild(name);
+		input.checked = this._map.hasLayer(obj.layer);
 
 		var container = obj.overlay ? this._overlaysList : this._baseLayersList;
 		container.appendChild(label);
